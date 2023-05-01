@@ -59,8 +59,9 @@ export const AuthProvider = ({ children }) => {
     if (artist) {
       setUser(artist);
       setLoggedIn(true);
+      return true; 
     } else {
-      console.log("error user not found");
+      return false; 
     }
   };
 
@@ -72,8 +73,9 @@ export const AuthProvider = ({ children }) => {
     if (user) {
       setUser(user);
       setLoggedIn(true);
+      return true; 
     } else {
-      console.log("error user not found");
+      return false;
     }
   };
   

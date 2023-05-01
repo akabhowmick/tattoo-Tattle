@@ -23,6 +23,8 @@ import { useTattooTattleContext } from "../../providers/tattoo-provider";
 import { useAuthContext } from "../../providers/auth-provider";
 import { EditTattoo } from "../CreateAndEditForms/EditTattoo";
 import notFoundImage from "../../assets/not-found.png";
+import { red, green, blue } from "@mui/material/colors";
+import { ToastMessage } from "./ToastMessage";
 
 const ExpandMore = styled((props) => {
   // eslint-disable-next-line no-unused-vars
@@ -35,16 +37,6 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
-const random_bg_color = () => {
-  const x = Math.floor(Math.random() * 256);
-  const y = Math.floor(Math.random() * 256);
-  const z = Math.floor(Math.random() * 256);
-  const bgColor = "rgb(" + x + "," + y + "," + z + ")";
-  return bgColor;
-};
-
-const avatarBgColor = random_bg_color();
 
 // eslint-disable-next-line react/prop-types
 export const TattooCard = ({ userId, tattoo }) => {
@@ -66,8 +58,15 @@ export const TattooCard = ({ userId, tattoo }) => {
 
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState({
+    message: "",
+    messageType: "",
+  });
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const tattooToastSuccess = (info) => {
+    setToastMessage({ message: info.message, messageType: info.messageType });
+  };
 
   const displayImage = image !== "" ? image : notFoundImage;
   const isFavorite =
@@ -104,39 +103,65 @@ export const TattooCard = ({ userId, tattoo }) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, minWidth: 275, marginTop: 5, width: 275 }}>
-      <CardHeader
-        avatar={
-          <Avatar
-            sx={{ background: { avatarBgColor } }}
-            className="avatar"
-            aria-label="tattoo"
-          >
-            {artist[0]}
-          </Avatar>
-        }
-        title={title}
-        subheader={artist}
-      />
-      <CardMedia
-        component="img"
-        height="225"
-        image={displayImage}
-        alt="tattoo image"
-      />
-      <CardContent>
-        <Typography variant="body1">
-          <strong>Tattoo Style: </strong> {tattooStyleInput?.toString()}
-        </Typography>
-      </CardContent>
-      {userType === "client" && (
+    <>
+      <Card sx={{ maxWidth: 345, minWidth: 275, marginTop: 5, width: 275 }}>
+        <CardHeader
+          avatar={
+            <Avatar
+              sx={{ backgroundColor: green[500] }}
+              className="avatar"
+              aria-label="tattoo"
+            >
+              {artist[0]}
+            </Avatar>
+          }
+          title={title}
+          subheader={artist}
+        />
+        <CardMedia
+          component="img"
+          height="225"
+          image={displayImage}
+          alt="tattoo image"
+        />
+        <CardContent>
+          <Typography variant="body1">
+            <strong>Tattoo Style: </strong> {tattooStyleInput?.toString()}
+          </Typography>
+        </CardContent>
+
         <CardActions disableSpacing>
-          <IconButton aria-label="add-to-favorites" onClick={handleHeartClick}>
-            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </IconButton>
-          <IconButton aria-label="add-request" onClick={handleOpen}>
-            <AddCircleIcon />
-          </IconButton>
+          {userType === "client" && (
+            <>
+              <IconButton
+                aria-label="add-to-favorites"
+                onClick={handleHeartClick}
+              >
+                {isFavorite ? (
+                  <FavoriteIcon sx={{ color: red[500] }} />
+                ) : (
+                  <FavoriteBorderIcon />
+                )}
+              </IconButton>
+              <IconButton aria-label="add-request" onClick={handleOpen}>
+                <AddCircleIcon sx={{ color: blue[500] }} />
+              </IconButton>
+            </>
+          )}
+          {userType === "artist" && (
+            <>
+              <IconButton
+                aria-label="delete-tattoo"
+                onClick={handleDeleteTattooClick}
+                sx={{ color: red[500] }}
+              >
+                <RemoveCircleOutlineIcon />
+              </IconButton>
+              <IconButton aria-label="add-request" onClick={handleOpen}>
+                <AddCircleOutlineIcon sx={{ color: blue[500] }} />
+              </IconButton>
+            </>
+          )}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}
@@ -146,49 +171,27 @@ export const TattooCard = ({ userId, tattoo }) => {
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
-      )}
-      {userType === "artist" && (
-        <CardActions disableSpacing>
-          <IconButton
-            aria-label="add-to-favorites"
-            onClick={handleDeleteTattooClick}
-          >
-            <RemoveCircleOutlineIcon />
-          </IconButton>
-          <IconButton aria-label="add-request" onClick={handleOpen}>
-            <AddCircleOutlineIcon />
-          </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show-more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-      )}
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>
-            <strong>Description: </strong>
-            {description}{" "}
-          </Typography>
-          <Typography paragraph>
-            <strong>Design date: </strong>
-            {dateCreated}
-          </Typography>
-          <Typography paragraph>
-            <strong>Where can you get this:</strong> {statesInput?.toString()}
-          </Typography>
-          <Typography paragraph>
-            <strong>Price Range: </strong>
-            {priceDescription}
-          </Typography>
-        </CardContent>
-      </Collapse>
 
-      {userType === "client" && (
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            <Typography paragraph>
+              <strong>Description: </strong>
+              {description}
+            </Typography>
+            <Typography paragraph>
+              <strong>Design date: </strong>
+              {dateCreated}
+            </Typography>
+            <Typography paragraph>
+              <strong>Where can you get this:</strong> {statesInput?.toString()}
+            </Typography>
+            <Typography paragraph>
+              <strong>Price Range: </strong>
+              {priceDescription}
+            </Typography>
+          </CardContent>
+        </Collapse>
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -196,23 +199,23 @@ export const TattooCard = ({ userId, tattoo }) => {
           aria-describedby="modal-modal-description"
         >
           <div>
-            <CreateRequest tattoo={tattoo} handleClose={handleClose}/>
+            {userType === "client" ? (
+              <CreateRequest
+                tattoo={tattoo}
+                handleClose={handleClose}
+                tattooRequestSuccess={tattooToastSuccess}
+              />
+            ) : (
+              <EditTattoo
+                id={tattoo.id}
+                handleClose={handleClose}
+                tattooEditSuccess={tattooToastSuccess}
+              />
+            )}
           </div>
         </Modal>
-      )}
-
-      {userType === "artist" && (
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <div>
-            <EditTattoo id={tattoo.id} handleClose={handleClose} />
-          </div>
-        </Modal>
-      )}
-    </Card>
+      </Card>
+      {toastMessage.message !== "" && <ToastMessage info={toastMessage} />}
+    </>
   );
 };

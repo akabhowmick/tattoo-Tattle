@@ -14,6 +14,7 @@ import {
 import { createTheme } from "@mui/material/styles";
 import { useTattooTattleContext } from "../../providers/tattoo-provider";
 import { useAuthContext } from "../../providers/auth-provider";
+import { ToastMessage } from "../UserInterface/ToastMessage";
 // import UploadImage from "./ImageUploader";
 
 const errorStyle = {
@@ -23,44 +24,51 @@ const errorStyle = {
   marginTop: "-8px",
 };
 
+const initial = {
+  image: {
+    data: "",
+    valid: false,
+    errorMessage: "",
+  },
+  tattooTitle: {
+    data: "",
+    valid: false,
+    errorMessage: "",
+  },
+  tattooDescription: {
+    data: "",
+    valid: false,
+    errorMessage: "",
+  },
+  price: {
+    data: "",
+    valid: false,
+    errorMessage: "",
+  },
+  tattooStyleInput: {
+    data: [],
+    valid: false,
+    errorMessage: "",
+  },
+  statesInput: {
+    data: [],
+    valid: false,
+    errorMessage: "",
+  },
+};
+
 // eslint-disable-next-line react/prop-types
-export const CreateTattoo = ({ setDisplaySelector }) => {
+export const CreateTattoo = () => {
   const { addTattoo } = useTattooTattleContext();
   const { user } = useAuthContext();
 
-  // used one state to see all validations; each component has the data, whether or not it is valid and a short message
-  const [formValues, setFormValues] = useState({
-    image: {
-      data: "",
-      valid: false,
-      errorMessage: "",
-    },
-    tattooTitle: {
-      data: "",
-      valid: false,
-      errorMessage: "",
-    },
-    tattooDescription: {
-      data: "",
-      valid: false,
-      errorMessage: "",
-    },
-    price: {
-      data: "",
-      valid: false,
-      errorMessage: "",
-    },
-    tattooStyleInput: {
-      data: [],
-      valid: false,
-      errorMessage: "",
-    },
-    statesInput: {
-      data: [],
-      valid: false,
-      errorMessage: "",
-    },
+  const [toastMessage, setToastMessage] = useState({
+    message: "",
+    messageType: "",
   });
+
+  // used one state to see all validations; each component has the data, whether or not it is valid and a short message
+  const [formValues, setFormValues] = useState(initial);
 
   const messageBodyValidation = (desc) => {
     if (!formValues.tattooDescription.data || desc.length < 20) {
@@ -125,7 +133,10 @@ export const CreateTattoo = ({ setDisplaySelector }) => {
       setFormValues({
         ...formValues,
         tattooStyleInput: {
-          data: typeof value === "string" ? event.target.value.split(",") : event.target.value,
+          data:
+            typeof value === "string"
+              ? event.target.value.split(",")
+              : event.target.value,
           valid: false,
           errorMessage: "Enter a tattoo style",
         },
@@ -134,7 +145,10 @@ export const CreateTattoo = ({ setDisplaySelector }) => {
       setFormValues({
         ...formValues,
         tattooStyleInput: {
-          data: typeof value === "string" ? event.target.value.split(",") : event.target.value,
+          data:
+            typeof value === "string"
+              ? event.target.value.split(",")
+              : event.target.value,
           valid: true,
           errorMessage: "",
         },
@@ -184,6 +198,10 @@ export const CreateTattoo = ({ setDisplaySelector }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    let info = {
+      message: "Tattoo Not Added",
+      messageType: "error",
+    };
     if (
       formValues.image.valid &&
       formValues.tattooTitle.valid &&
@@ -204,8 +222,14 @@ export const CreateTattoo = ({ setDisplaySelector }) => {
         tattooStyleInput: formValues.tattooStyleInput.data,
       };
       addTattoo(newTattoo);
-      setDisplaySelector("tats");
+      // setDisplaySelector("tats");
+      info = {
+        message: "Tattoo added",
+        messageType: "success",
+      };
+      setFormValues(initial);
     }
+    setToastMessage(info);
   };
 
   const ITEM_HEIGHT = 48;
@@ -242,6 +266,7 @@ export const CreateTattoo = ({ setDisplaySelector }) => {
           Add New Tattoo To Your Collection
         </Typography>
         <TextField
+          value={formValues.tattooTitle.data}
           margin="normal"
           required
           fullWidth
@@ -261,6 +286,7 @@ export const CreateTattoo = ({ setDisplaySelector }) => {
           </Typography>
         )}
         <TextField
+          value={formValues.tattooDescription.data}
           margin="normal"
           required
           fullWidth
@@ -424,6 +450,7 @@ export const CreateTattoo = ({ setDisplaySelector }) => {
           Add New Tattoo!
         </Button>
       </Box>
+      {toastMessage.message !== "" && <ToastMessage info={toastMessage} />}
     </div>
   );
 };

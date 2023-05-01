@@ -1,4 +1,4 @@
-{
+export const db_reseed = {
   "clients": [
     {
       "id": 1,
@@ -154,7 +154,10 @@
       "password": "password123",
       "phoneNumber": "1234567890",
       "workState": "NY",
-      "tattooStyle": ["floral", "tribal"]
+      "tattooStyle": [
+        "floral",
+        "tribal"
+      ]
     },
     {
       "firstName": "Waynet",
@@ -162,7 +165,10 @@
       "email": "your.email+fakedata85363@gmail.com",
       "password": "LI6JLflAP3m1wer",
       "phoneNumber": "+1 868 094 8096",
-      "tattooStyles": ["Old School", "Fine Line"],
+      "tattooStyles": [
+        "Old School",
+        "Fine Line"
+      ],
       "id": 2
     },
     {
@@ -171,7 +177,9 @@
       "email": "your.email+fakedata15400@gmail.com",
       "password": "_4Y6yvr6OVMe3eI",
       "phoneNumber": "+1 517 668 3875",
-      "tattooStyles": ["Watercolor"],
+      "tattooStyles": [
+        "Watercolor"
+      ],
       "id": 3
     },
     {
@@ -180,8 +188,16 @@
       "email": "your.email+fakedata11921@gmail.com",
       "password": "vel5qY4epiMstyG",
       "phoneNumber": "+1 479 971 6557",
-      "statesLocation": ["AR", "AS", "AZ"],
-      "tattooStyles": ["Old School", "Fine Line", "Patchwork"],
+      "statesLocation": [
+        "AR",
+        "AS",
+        "AZ"
+      ],
+      "tattooStyles": [
+        "Old School",
+        "Fine Line",
+        "Patchwork"
+      ],
       "id": 4
     },
     {
@@ -190,8 +206,12 @@
       "email": "your.email+fakedata20057@gmail.com",
       "password": "BMuTM3DpXEqBymn",
       "phoneNumber": "+1 664 828 5374",
-      "statesLocation": ["TX"],
-      "tattooStyles": ["3D"],
+      "statesLocation": [
+        "TX"
+      ],
+      "tattooStyles": [
+        "3D"
+      ],
       "id": 5
     },
     {
@@ -200,8 +220,16 @@
       "email": "your.email+fakedata60148@gmail.com",
       "password": "LhI_P5_8j9C_FF4",
       "phoneNumber": "+1 494 490 8109",
-      "statesLocation": ["CA", "CT"],
-      "tattooStyles": ["Tribal", "Watercolor", "Fine Line", "Old School"],
+      "statesLocation": [
+        "CA",
+        "CT"
+      ],
+      "tattooStyles": [
+        "Tribal",
+        "Watercolor",
+        "Fine Line",
+        "Old School"
+      ],
       "id": 6
     },
     {
@@ -210,8 +238,12 @@
       "email": "your.email+fakedata38046@gmail.com",
       "password": "bMVNl5vdJNJ48Ud",
       "phoneNumber": "+1 721 975 8823",
-      "statesLocation": ["AL"],
-      "tattooStyles": ["Old School"],
+      "statesLocation": [
+        "AL"
+      ],
+      "tattooStyles": [
+        "Old School"
+      ],
       "id": 7
     },
     {
@@ -220,8 +252,12 @@
       "email": "your.email+fakedata31398@gmail.com",
       "password": "hYoJqTRT6ykq1Io",
       "phoneNumber": "+1 662 030 2557",
-      "statesLocation": ["AS"],
-      "tattooStyles": ["Fine Line"],
+      "statesLocation": [
+        "AS"
+      ],
+      "tattooStyles": [
+        "Fine Line"
+      ],
       "id": 8
     },
     {
@@ -230,8 +266,16 @@
       "email": "thisIsWilBurn@gmail.com",
       "password": "V2IA9uZW0apntW!",
       "phoneNumber": "+1 1 603 438 203",
-      "statesLocation": ["KS", "KY", "LA"],
-      "tattooStyles": ["Tribal", "Watercolor", "Blackwork"],
+      "statesLocation": [
+        "KS",
+        "KY",
+        "LA"
+      ],
+      "tattooStyles": [
+        "Tribal",
+        "Watercolor",
+        "Blackwork"
+      ],
       "id": 9
     },
     {
@@ -261,8 +305,13 @@
       "artist": "Ben Benjamin",
       "price": 100,
       "description": "Quo quis nihil enim rerum sit maiores dolore aspernatur.",
-      "statesInput": ["AL", "AR"],
-      "tattooStyleInput": ["Blackwork"]
+      "statesInput": [
+        "AL",
+        "AR"
+      ],
+      "tattooStyleInput": [
+        "Blackwork"
+      ]
     },
     {
       "id": 2,
@@ -273,8 +322,13 @@
       "artist": "Waynet Durgant",
       "price": 1001,
       "description": "Dummy Text 2",
-      "statesInput": ["AL", "AR"],
-      "tattooStyleInput": ["Watercolor"]
+      "statesInput": [
+        "AL",
+        "AR"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ]
     },
     {
       "id": 3,
@@ -285,8 +339,13 @@
       "artist": "Ben Benjamin",
       "price": 1000,
       "description": "Dummy Text 3",
-      "statesInput": ["AL", "AR"],
-      "tattooStyleInput": ["Watercolor"]
+      "statesInput": [
+        "AL",
+        "AR"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ]
     },
     {
       "id": 4,
@@ -297,8 +356,13 @@
       "artist": "Waynet Durgant",
       "description": "Dummy Text 4",
       "price": 1000,
-      "statesInput": ["AL", "AR"],
-      "tattooStyleInput": ["Watercolor"]
+      "statesInput": [
+        "AL",
+        "AR"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ]
     },
     {
       "artistId": 2,
@@ -308,8 +372,13 @@
       "artist": "Waynet Durgant",
       "description": "Et eos non est molestias est quia blanditiis debitis.",
       "price": 500,
-      "statesInput": ["AL", "AR"],
-      "tattooStyleInput": ["Watercolor"],
+      "statesInput": [
+        "AL",
+        "AR"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ],
       "id": 5
     },
     {
@@ -320,8 +389,14 @@
       "artist": "Ben Benjamin",
       "description": "Et nihil laboriosam et et enim consectetur ut sed quidem.",
       "price": 1000,
-      "statesInput": ["AL", "AR"],
-      "tattooStyleInput": ["Blackwork", "Realism"],
+      "statesInput": [
+        "AL",
+        "AR"
+      ],
+      "tattooStyleInput": [
+        "Blackwork",
+        "Realism"
+      ],
       "id": 6
     },
     {
@@ -331,8 +406,12 @@
       "artist": "Mayra Schuppe",
       "description": "Unde consequatur qui quisquam quis doloremque.",
       "price": 500,
-      "statesInput": ["AR"],
-      "tattooStyleInput": ["Watercolor"],
+      "statesInput": [
+        "AR"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ],
       "id": 7
     },
     {
@@ -342,8 +421,12 @@
       "artist": "Davon Lakin",
       "description": "Consequatur ut autem consequatur accusamus.",
       "price": 500,
-      "statesInput": ["AK"],
-      "tattooStyleInput": ["Fine Line"],
+      "statesInput": [
+        "AK"
+      ],
+      "tattooStyleInput": [
+        "Fine Line"
+      ],
       "id": 8
     },
     {
@@ -353,8 +436,12 @@
       "artist": "Davon Lakin",
       "description": "Vero sit consectetur delectus similique adipisci veritatis.",
       "price": "100",
-      "statesInput": ["DC"],
-      "tattooStyleInput": ["Portrait"],
+      "statesInput": [
+        "DC"
+      ],
+      "tattooStyleInput": [
+        "Portrait"
+      ],
       "id": 9
     },
     {
@@ -364,8 +451,12 @@
       "artist": "Davon Lakin",
       "description": "Voluptas et labore libero quas et aperiam.",
       "price": "100",
-      "statesInput": ["NY"],
-      "tattooStyleInput": ["Old School"],
+      "statesInput": [
+        "NY"
+      ],
+      "tattooStyleInput": [
+        "Old School"
+      ],
       "id": 10
     },
     {
@@ -376,8 +467,12 @@
       "artist": "Oswaldo Nitzsche",
       "description": "Doloribus consequuntur dolorem esse repudiandae perferendis.",
       "price": 1001,
-      "statesInput": ["AZ"],
-      "tattooStyleInput": ["Watercolor"],
+      "statesInput": [
+        "AZ"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ],
       "id": 11
     },
     {
@@ -388,8 +483,13 @@
       "artist": "Wilburn Fadel",
       "description": "Fugiat voluptate iusto dolorem",
       "price": 1000,
-      "statesInput": ["KS", "KY"],
-      "tattooStyleInput": ["Tribal"],
+      "statesInput": [
+        "KS",
+        "KY"
+      ],
+      "tattooStyleInput": [
+        "Tribal"
+      ],
       "id": 13
     },
     {
@@ -400,8 +500,13 @@
       "artist": "Wilburn Fadel",
       "description": "Deleniti aut distinctio saepe dolores ut consectetu voluptas.",
       "price": 1001,
-      "statesInput": ["KS"],
-      "tattooStyleInput": ["Tribal", "Blackwork"],
+      "statesInput": [
+        "KS"
+      ],
+      "tattooStyleInput": [
+        "Tribal",
+        "Blackwork"
+      ],
       "id": 14
     },
     {
@@ -412,8 +517,12 @@
       "artist": "Wilburn Fadel",
       "description": "Deserunt ipsam fugit aliquam provident dolor praesentium quibusdam vitae.",
       "price": 100,
-      "statesInput": ["KY"],
-      "tattooStyleInput": ["Watercolor"],
+      "statesInput": [
+        "KY"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ],
       "id": 15
     },
     {
@@ -424,8 +533,12 @@
       "artist": "Wilburn Fadel",
       "description": "Molestiae voluptas tempore fugiat autem molestiae mxime iusto autem labore.",
       "price": 100,
-      "statesInput": ["KY"],
-      "tattooStyleInput": ["Watercolor"],
+      "statesInput": [
+        "KY"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ],
       "id": 16
     },
     {
@@ -436,8 +549,12 @@
       "artist": "Wilburn Fadel",
       "description": "Blanditiis ipsum voluptates laudantium modi",
       "price": 1000,
-      "statesInput": ["LA"],
-      "tattooStyleInput": ["Blackwork"],
+      "statesInput": [
+        "LA"
+      ],
+      "tattooStyleInput": [
+        "Blackwork"
+      ],
       "id": 17
     },
     {
@@ -448,8 +565,12 @@
       "artist": "Wilburn Fadel",
       "description": "Sapiente est animi laboriosam deleniti impedit optio officiis repellendus perferendis",
       "price": 1000,
-      "statesInput": ["LA"],
-      "tattooStyleInput": ["Tribal"],
+      "statesInput": [
+        "LA"
+      ],
+      "tattooStyleInput": [
+        "Tribal"
+      ],
       "id": 18
     },
     {
@@ -460,8 +581,12 @@
       "artist": "Wilburn Fadel",
       "description": "This is the description ",
       "price": 1001,
-      "statesInput": ["KS"],
-      "tattooStyleInput": ["Tribal"],
+      "statesInput": [
+        "KS"
+      ],
+      "tattooStyleInput": [
+        "Tribal"
+      ],
       "id": 19
     },
     {
@@ -472,8 +597,12 @@
       "artist": "Wilburn Fadel",
       "description": "Doloremque eaque explicabo voluptatem atque",
       "price": 500,
-      "statesInput": ["KY"],
-      "tattooStyleInput": ["Watercolor"],
+      "statesInput": [
+        "KY"
+      ],
+      "tattooStyleInput": [
+        "Watercolor"
+      ],
       "id": 20
     }
   ],
@@ -600,16 +729,60 @@
     }
   ],
   "favorites": [
-    { "userId": 2, "tattooId": 1, "id": 3 },
-    { "userId": 4, "tattooId": 2, "id": 4 },
-    { "userId": 1, "tattooId": 4, "id": 5 },
-    { "userId": 1, "tattooId": 7, "id": 6 },
-    { "userId": 13, "tattooId": 3, "id": 7 },
-    { "userId": 13, "tattooId": 8, "id": 8 },
-    { "userId": 13, "tattooId": 7, "id": 9 },
-    { "userId": 14, "tattooId": 1, "id": 10 },
-    { "userId": 15, "tattooId": 2, "id": 11 },
-    { "userId": 1, "tattooId": 11, "id": 13 },
-    { "userId": 1, "tattooId": 1, "id": 14 }
+    {
+      "userId": 2,
+      "tattooId": 1,
+      "id": 3
+    },
+    {
+      "userId": 4,
+      "tattooId": 2,
+      "id": 4
+    },
+    {
+      "userId": 1,
+      "tattooId": 4,
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "tattooId": 7,
+      "id": 6
+    },
+    {
+      "userId": 13,
+      "tattooId": 3,
+      "id": 7
+    },
+    {
+      "userId": 13,
+      "tattooId": 8,
+      "id": 8
+    },
+    {
+      "userId": 13,
+      "tattooId": 7,
+      "id": 9
+    },
+    {
+      "userId": 14,
+      "tattooId": 1,
+      "id": 10
+    },
+    {
+      "userId": 15,
+      "tattooId": 2,
+      "id": 11
+    },
+    {
+      "userId": 1,
+      "tattooId": 11,
+      "id": 13
+    },
+    {
+      "userId": 1,
+      "tattooId": 1,
+      "id": 14
+    }
   ]
 }

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Typography, Box, TextField, Button } from "@mui/material";
 import { useRequestsContext } from "../../providers/requests-provider";
 import { useAuthContext } from "../../providers/auth-provider";
-import { useTattooTattleContext } from "../../providers/tattoo-provider";
+import { ToastMessage } from "../UserInterface/ToastMessage";
 const style = {
   position: "absolute",
   top: "50%",
@@ -21,12 +21,19 @@ const errorStyle = {
   fontSize: "12px",
 };
 
-export const CreateRequest = ({ tattoo, handleClose }) => {
+export const CreateRequest = ({
+  tattoo,
+  handleClose,
+  tattooRequestSuccess,
+}) => {
   const { user } = useAuthContext();
-  const { activeSelectorClick } = useTattooTattleContext();
   const { addRequest } = useRequestsContext();
   const [messageBody, setMessageBody] = useState("");
   const [validMessage, setValidMessage] = useState("Enter a message");
+  const [toastMessage, setToastMessage] = useState({
+    message: "",
+    messageType: "",
+  });
 
   const messageBodyValidation = (message) => {
     if (!messageBody || message.length < 20) {
@@ -39,6 +46,16 @@ export const CreateRequest = ({ tattoo, handleClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const info =
+      validMessage === "true"
+        ? {
+            message: "Request added",
+            messageType: "success",
+          }
+        : {
+            message: "Request Not Modified",
+            messageType: "error",
+          };
     if (validMessage === "true") {
       const newRequest = {
         messageBody: messageBody,
@@ -50,45 +67,49 @@ export const CreateRequest = ({ tattoo, handleClose }) => {
         tattooOfInterestTitle: tattoo.title,
       };
       addRequest(newRequest);
-      activeSelectorClick("reqs", user.id);
+      tattooRequestSuccess(info);
       handleClose();
     }
+    setToastMessage(info);
   };
 
   return (
-    <div>
-      <Box sx={style} component="form" noValidate onSubmit={handleSubmit}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Inquire Artist about Design
-        </Typography>
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="messageBody"
-          label="Message Body"
-          type="text"
-          id="messageBody"
-          autoComplete="message for artist"
-          autoFocus
-          onChange={(e) => {
-            messageBodyValidation(e.target.value);
-          }}
-        />
-        {validMessage !== "true" && (
-          <Typography sx={errorStyle} variant="h6" component="h6">
-            {validMessage}
+    <>
+      <div>
+        <Box sx={style} component="form" noValidate onSubmit={handleSubmit}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Inquire Artist about Design
           </Typography>
-        )}
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Submit Request
-        </Button>
-      </Box>
-    </div>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            name="messageBody"
+            label="Message Body"
+            type="text"
+            id="messageBody"
+            autoComplete="message for artist"
+            autoFocus
+            onChange={(e) => {
+              messageBodyValidation(e.target.value);
+            }}
+          />
+          {validMessage !== "true" && (
+            <Typography sx={errorStyle} variant="h6" component="h6">
+              {validMessage}
+            </Typography>
+          )}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Submit Request
+          </Button>
+        </Box>
+      </div>
+      {toastMessage.message !== "" && <ToastMessage info={toastMessage} />}
+    </>
   );
 };

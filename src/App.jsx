@@ -11,7 +11,6 @@ import { Login } from "./Components/Login/Login";
 import { NotFound } from "./Components/NotFound";
 import { ArtistInterface } from "./Components/UserInterface/ArtistInterface";
 import { ClientInterface } from "./Components/UserInterface/ClientInterface";
-import { ToastMessage } from "./Components/UserInterface/ToastMessage";
 import {
   ClientProtectedRoute,
   ArtistProtectedRoute,
@@ -46,7 +45,6 @@ function App() {
         <RequestsProvider userType={userType} user={user} loggedIn={loggedIn}>
           <FavoritesProvider>
             <RouterProvider router={router} />
-            <ToastMessage message={'This is the message'} messageType={'error'}/>        
           </FavoritesProvider>
         </RequestsProvider>
       </TattooProvider>
@@ -54,8 +52,7 @@ function App() {
   );
 }
 
-// Props were drilled into the Tattoo and Request Providers because the back end should take care of the 
-// requests and tattoos displayed and for that they need info on the user 
-
+// Props were drilled into the Tattoo and Request Providers because the back end should take care of the
+// requests and tattoos displayed and for that they need info on the user
 
 export default App;

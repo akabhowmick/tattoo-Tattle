@@ -83,6 +83,12 @@ header nav a {
   align-content: center;
 }
 
+.create-account .field-error-div {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto 0;
+}
+
 /* dashboard */
 .dash-board {
   display: flex;
@@ -222,4 +228,8 @@ header nav a {
   color: red;
   text-decoration: underline;
   font-size: 0.5rem;
+}
+
+#modal-modal-title{
+  text-align: center;
 }

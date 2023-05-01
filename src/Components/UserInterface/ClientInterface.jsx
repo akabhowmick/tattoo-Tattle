@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../../providers/auth-provider";
 import { useTattooTattleContext } from "../../providers/tattoo-provider";
 import { DashBoard } from "./DashBoard";
@@ -14,6 +14,7 @@ import {
 import { createTheme } from "@mui/material/styles";
 import { tattooStyles, usStates } from "../../api/config";
 import { Pagination } from "./Pagination";
+import { ToastMessage } from "./ToastMessage";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -41,9 +42,23 @@ export const ClientInterface = () => {
   const { user } = useAuthContext();
   const { activeSelector, activeSelectorClick, handleFilters, filters } =
     useTattooTattleContext();
+  const [toastMessage, setToastMessage] = useState({
+    message: "Logged in",
+    messageType: "success",
+  });
 
+  useEffect(() => {
+    setToastMessage({ message: "", messageType: "" });
+  }, []);
+
+  const [firstView, setFirstView] = useState(true);
   const handlePriceChange = (event) => {
     handleFilters("price", event.target.value);
+  };
+
+  const filterClick = (selector, id) => {
+    setFirstView(false);
+    activeSelectorClick(selector, id)
   };
 
   const handleTattooStyleChange = (event) => {
@@ -68,12 +83,15 @@ export const ClientInterface = () => {
 
   return (
     <div>
+      {firstView && toastMessage !== "" && activeSelector === "all" && (
+        <ToastMessage info={{ message: "Logged in", messageType: "success" }} />
+      )}
       <DashBoard />
       <div className="selectors-container">
         <div className="selectors">
           <div
             className={`selector ${activeSelector === "all" && "active"}`}
-            onClick={() => activeSelectorClick("all", user.id)}
+            onClick={() => filterClick("all", user.id)}
           >
             All Tattoos
           </div>
@@ -180,13 +198,13 @@ export const ClientInterface = () => {
           )}
           <div
             className={`selector ${activeSelector === "favs" && "active"}`}
-            onClick={() => activeSelectorClick("favs", user.id)}
+            onClick={() => filterClick("favs", user.id)}
           >
             Favorited
           </div>
           <div
             className={`selector ${activeSelector === "reqs" && "active"}`}
-            onClick={() => activeSelectorClick("reqs", user.id)}
+            onClick={() => filterClick("reqs", user.id)}
           >
             My Requests
           </div>

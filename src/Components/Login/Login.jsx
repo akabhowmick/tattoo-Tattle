@@ -19,6 +19,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import loginImage from "../../assets/login.png";
 import { useAuthContext } from "../../providers/auth-provider";
 import { Navigate, Link } from "react-router-dom";
+import { ToastMessage } from "../UserInterface/ToastMessage";
 
 function Copyright(props) {
   return (
@@ -29,7 +30,7 @@ function Copyright(props) {
       {...props}
     >
       {"Copyright © "}
-      <Link to='/' replace={true}>
+      <Link to="/" replace={true}>
         Tattoo Tattle
       </Link>{" "}
       {new Date().getFullYear()}
@@ -41,38 +42,46 @@ function Copyright(props) {
 const theme = createTheme();
 
 export const Login = () => {
-  const {
-    userType,
-    setUserType,
-    signInArtist,
-    signInClient,
-    loggedIn,
-  } = useAuthContext();
+  const { userType, setUserType, signInArtist, signInClient, loggedIn } =
+    useAuthContext();
 
   const [emailInput, setEmailInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
+  const [toastMessage, setToastMessage] = React.useState({
+    message: "",
+    messageType: "",
+  });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    let result;
     if (userType === "client") {
       const client = {
         email: emailInput,
         password: passwordInput,
       };
-      signInClient(client);
+      result = await signInClient(client);
     } else {
       const artist = {
         email: emailInput,
         password: passwordInput,
       };
-      signInArtist(artist);
+      result = await signInArtist(artist);
+    }
+    if (!result) {
+      setToastMessage({ message: "Log-in", messageType: "error" });
     }
   };
 
   return (
     <>
-      {loggedIn && userType === "client" && <Navigate to="/client-home" replace={true} />}
-      {loggedIn && userType === "artist" && <Navigate to="/artist-home" replace={true} />}
+      {loggedIn && userType === "client" && (
+        <Navigate to="/client-home" replace={true} />
+      )}
+      {loggedIn && userType === "artist" && (
+        <Navigate to="/artist-home" replace={true} />
+      )}
+      {toastMessage.message !== "" && <ToastMessage info={toastMessage} />}
       <ThemeProvider theme={theme}>
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
@@ -184,7 +193,9 @@ export const Login = () => {
                 </Button>
                 <Grid container>
                   <Grid item>
-                    <Link to="/signup" replace={true}>Don&#39;t have an account? Sign up Now!</Link>
+                    <Link to="/signup" replace={true}>
+                      Don&#39;t have an account? Sign up Now!
+                    </Link>
                   </Grid>
                 </Grid>
                 <Copyright sx={{ mt: 5 }} />

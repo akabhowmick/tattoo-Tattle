@@ -1,12 +1,18 @@
 import { Pagination } from "./Pagination";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CreateTattoo } from "../CreateAndEditForms/CreateTattoo";
 import { DashBoard } from "./DashBoard";
+import { ToastMessage } from "./ToastMessage";
 
 export const ArtistInterface = () => {
   const [displaySelector, setDisplaySelector] = useState("tats");
-
+  const [toastMessage, setToastMessage] = useState({
+    message: "Logged in",
+    messageType: "success",
+  });
+  const [firstView, setFirstView] = useState(true);
   const filterClick = (selector) => {
+    setFirstView(false);
     if (displaySelector !== selector) {
       setDisplaySelector(selector);
     } else {
@@ -14,8 +20,18 @@ export const ArtistInterface = () => {
     }
   };
 
+  useEffect(() => {
+    setToastMessage({ message: "", messageType: "" });
+  }, []);
+
   return (
     <div>
+      {firstView && toastMessage !== "" && displaySelector === "tats" && (
+        <ToastMessage info={{ message: "Logged in", messageType: "success" }} />
+      )}
+      {/* {firstView && toastMessage == "" && displaySelector === "tats" && (
+        <ToastMessage info={toastMessage} />
+      )} */}
       <DashBoard />
       <div className="selectors-container">
         <div className="selectors">
@@ -40,14 +56,12 @@ export const ArtistInterface = () => {
         </div>
       </div>
       {(displaySelector === "tats" || displaySelector === null) && (
-        <Pagination currentDisplay={"tats"}/>
+        <Pagination currentDisplay={"tats"} />
       )}
-      {displaySelector === "reqs" && (
-        <Pagination currentDisplay={"reqs"}/>
-      )}
+      {displaySelector === "reqs" && <Pagination currentDisplay={"reqs"} />}
       {displaySelector === "add" && (
         <div className="tattoo-form">
-          <CreateTattoo setDisplaySelector={setDisplaySelector} />
+          <CreateTattoo/>
         </div>
       )}
     </div>

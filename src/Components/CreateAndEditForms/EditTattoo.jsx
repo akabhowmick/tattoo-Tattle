@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Typography, Box, TextField, Button } from "@mui/material";
 import { useTattooTattleContext } from "../../providers/tattoo-provider";
+import { ToastMessage } from "../UserInterface/ToastMessage";
 const style = {
   position: "absolute",
   top: "50%",
@@ -20,20 +21,16 @@ const errorStyle = {
   fontSize: "12px",
 };
 
-export const EditTattoo = ({ id, handleClose }) => {
+export const EditTattoo = ({ id, handleClose, tattooEditSuccess }) => {
   const { updateTattoo } = useTattooTattleContext();
   const [messageBody, setMessageBody] = useState("");
   const [validMessage, setValidMessage] = useState("Enter a description");
   const [tattooTitle, setTattooTitle] = useState("");
   const [validTitle, setValidTitle] = useState("Enter a title");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validTitle === "true" && validMessage === "true") {
-      updateTattoo(id, tattooTitle, messageBody);
-      handleClose();
-    }
-  };
+  const [toastMessage, setToastMessage] = useState({
+    message: "",
+    messageType: "",
+  });
 
   const messageBodyValidation = (message) => {
     if (!messageBody || message.length < 20) {
@@ -51,6 +48,26 @@ export const EditTattoo = ({ id, handleClose }) => {
       setValidTitle("true");
     }
     setTattooTitle(title);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const info =
+    validTitle === "true" && validMessage === "true"
+        ? {
+            message: "Tattoo details modified",
+            messageType: "success",
+          }
+        : {
+            message: "Tattoo Not Modified",
+            messageType: "error",
+          };
+    if (validTitle === "true" && validMessage === "true") {
+      updateTattoo(id, tattooTitle, messageBody);
+      handleClose();
+      tattooEditSuccess(info);
+    } 
+    setToastMessage(info);
   };
 
   return (
@@ -111,6 +128,7 @@ export const EditTattoo = ({ id, handleClose }) => {
           Submit Request
         </Button>
       </Box>
+      {toastMessage.message !== "" && <ToastMessage info={toastMessage} />}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useState } from "react";
 import {
   Avatar,
@@ -26,6 +27,7 @@ import signupImage from "../../assets/signup.jpg";
 import { useAuthContext } from "../../providers/auth-provider";
 import { tattooStyles, usStates } from "../../api/config";
 import { Navigate, Link } from "react-router-dom";
+import { ToastMessage } from "../UserInterface/ToastMessage";
 
 function Copyright(props) {
   return (
@@ -68,8 +70,7 @@ function getStyles(name, selectField, theme) {
 const errorStyle = {
   color: "red",
   fontSize: "12px",
-  marginBottom: "10px",
-  marginTop: "-8px",
+  margin: "10px auto",
 };
 
 const theme = createTheme();
@@ -77,12 +78,6 @@ const theme = createTheme();
 export const CreateAccount = () => {
   const { addClient, addArtist, userType, setUserType, loggedIn } =
     useAuthContext();
-
-  const [firstNameInput, setFirstNameInput] = useState("");
-  const [lastNameInput, setLastNameInput] = useState("");
-  const [emailInput, setEmailInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
-  const [phoneInput, setPhoneInput] = useState("");
 
   const [formValues, setFormValues] = useState({
     firstNameInput: {
@@ -105,7 +100,7 @@ export const CreateAccount = () => {
       valid: false,
       errorMessage: "",
     },
-    password: {
+    passwordInput: {
       data: "",
       valid: false,
       errorMessage: "",
@@ -122,8 +117,99 @@ export const CreateAccount = () => {
     },
   });
 
-  const handlePhoneChange = (newPhone) => {
-    setPhoneInput(newPhone);
+  const [toastMessage, setToastMessage] = React.useState({
+    message: "",
+    messageType: "",
+  });
+
+  const nameValidation = (fieldName, value) => {
+    if (value.length > 1) {
+      setFormValues({
+        ...formValues,
+        [fieldName]: {
+          data: value,
+          valid: true,
+          errorMessage: "",
+        },
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        [fieldName]: {
+          data: value,
+          valid: false,
+          errorMessage: "Invalid name",
+        },
+      });
+    }
+  };
+
+  const phoneValidation = (newPhone) => {
+    // assumes american number, includes +1 and spaces in the format +1 xxx xxx xxxx
+    if (newPhone.length === 15) {
+      setFormValues({
+        ...formValues,
+        phoneInput: {
+          data: newPhone,
+          valid: true,
+          errorMessage: "",
+        },
+      });
+    } else {
+      setFormValues({
+        ...formValues,
+        phoneInput: {
+          data: newPhone,
+          valid: false,
+          errorMessage: "Invalid phone number",
+        },
+      });
+    }
+  };
+
+  const emailValidation = (email) => {
+    const emailRegex =
+      /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    emailRegex.test(email)
+      ? setFormValues({
+          ...formValues,
+          emailInput: {
+            data: email,
+            valid: true,
+            errorMessage: "",
+          },
+        })
+      : setFormValues({
+          ...formValues,
+          emailInput: {
+            data: email,
+            valid: false,
+            errorMessage: "Invalid email input",
+          },
+        });
+  };
+
+  const passwordValidation = (password) => {
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
+    passwordRegex.test(password)
+      ? setFormValues({
+          ...formValues,
+          passwordInput: {
+            data: password,
+            valid: true,
+            errorMessage: "",
+          },
+        })
+      : setFormValues({
+          ...formValues,
+          passwordInput: {
+            data: password,
+            valid: false,
+            errorMessage:
+              "Invalid password input, must have (8-20 char, 1 lowercase,1 uppercase, 1 number, 1 special char)",
+          },
+        });
   };
 
   const handleTattooStyleChange = (event) => {
@@ -184,37 +270,48 @@ export const CreateAccount = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (userType === "client") {
-      const newClient = {
-        firstName: firstNameInput,
-        lastName: lastNameInput,
-        email: emailInput,
-        password: passwordInput,
-        phoneNumber: phoneInput,
+    if (
+      formValues.firstNameInput.valid &&
+      formValues.lastNameInput.valid &&
+      formValues.emailInput.valid &&
+      formValues.passwordInput.valid &&
+      formValues.phoneInput.valid
+    ) {
+      const user = {
+        firstName: formValues.firstNameInput.data,
+        lastName: formValues.lastNameInput.data,
+        email: formValues.emailInput.data,
+        password: formValues.passwordInput.data,
+        phoneNumber: formValues.phoneInput.data,
       };
-      addClient(newClient);
-    } else {
-      const newArtist = {
-        firstName: firstNameInput,
-        lastName: lastNameInput,
-        email: emailInput,
-        password: passwordInput,
-        phoneNumber: phoneInput,
-        statesInput: formValues.statesInput.data,
-        tattooStyleInput: formValues.tattooStyleInput.data,
-      };
-      addArtist(newArtist);
+      if (userType === "client") {
+        addClient(user);
+      } else if (
+        userType === "artist" &&
+        formValues.statesInput.valid &&
+        formValues.tattooStyleInput.valid
+      ) {
+        user.statesInput = formValues.statesInput.data;
+        user.tattooStyleInput = formValues.tattooStyleInput.data;
+        addArtist(user);
+      }
+      else{
+        setToastMessage({ message: "Sign up", messageType: "error" });
+      }
+    } else{
+      setToastMessage({ message: "Sign up", messageType: "error" });
     }
   };
 
   return (
-    <>
+    <div className="create-account">
       {loggedIn && userType === "client" && (
         <Navigate to="/client-home" replace={true} />
       )}
       {loggedIn && userType === "artist" && (
         <Navigate to="/artist-home" replace={true} />
       )}
+      {toastMessage.message !== "" && <ToastMessage info={toastMessage} />}
       <ThemeProvider theme={theme}>
         <Grid container component="main" sx={{ height: "100vh" }}>
           <CssBaseline />
@@ -291,33 +388,49 @@ export const CreateAccount = () => {
                   </FormControl>
                 </Grid>
                 <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="firstName"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      onChange={(e) => {
-                        setFirstNameInput(e.target.value);
-                      }}
-                    />
-                  </Grid>
+                  <div className="field-error-div">
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        autoComplete="given-name"
+                        name="firstName"
+                        required
+                        fullWidth
+                        id="firstName"
+                        label="First Name"
+                        onChange={(e) => {
+                          nameValidation("firstNameInput", e.target.value);
+                        }}
+                        sx={{ width: 150 }}
+                      />
+                    </Grid>
+                    {!formValues.firstNameInput.valid && (
+                      <Typography sx={errorStyle} variant="h6" component="h6">
+                        {formValues.firstNameInput.errorMessage}
+                      </Typography>
+                    )}
+                  </div>
 
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="family-name"
-                      onChange={(e) => {
-                        setLastNameInput(e.target.value);
-                      }}
-                    />
-                  </Grid>
+                  <div className="field-error-div">
+                    <Grid item xs={12} sm={6}>
+                      <TextField
+                        required
+                        fullWidth
+                        id="lastName"
+                        label="Last Name"
+                        name="lastName"
+                        autoComplete="family-name"
+                        onChange={(e) => {
+                          nameValidation("lastNameInput", e.target.value);
+                        }}
+                        sx={{ width: 150 }}
+                      />
+                    </Grid>
+                    {!formValues.lastNameInput.valid && (
+                      <Typography sx={errorStyle} variant="h6" component="h6">
+                        {formValues.lastNameInput.errorMessage}
+                      </Typography>
+                    )}
+                  </div>
 
                   <Grid item xs={12}>
                     <TextField
@@ -328,10 +441,15 @@ export const CreateAccount = () => {
                       name="email"
                       autoComplete="email"
                       onChange={(e) => {
-                        setEmailInput(e.target.value);
+                        emailValidation(e.target.value);
                       }}
                     />
                   </Grid>
+                  {!formValues.emailInput.valid && (
+                    <Typography sx={errorStyle} variant="h6" component="h6">
+                      {formValues.emailInput.errorMessage}
+                    </Typography>
+                  )}
 
                   <Grid item xs={12}>
                     <TextField
@@ -343,21 +461,31 @@ export const CreateAccount = () => {
                       id="password"
                       autoComplete="new-password"
                       onChange={(e) => {
-                        setPasswordInput(e.target.value);
+                        passwordValidation(e.target.value);
                       }}
                     />
                   </Grid>
+                  {!formValues.passwordInput.valid && (
+                    <Typography sx={errorStyle} variant="h6" component="h6">
+                      {formValues.passwordInput.errorMessage}
+                    </Typography>
+                  )}
 
                   <Grid item xs={12}>
                     <MuiTelInput
                       fullWidth
-                      value={phoneInput}
-                      onChange={handlePhoneChange}
+                      value={formValues.phoneInput.data}
+                      onChange={phoneValidation}
                       forceCallingCode
                       preferredCountries={["US"]}
                       defaultCountry={"US"}
                     />
                   </Grid>
+                  {!formValues.phoneInput.valid && (
+                    <Typography sx={errorStyle} variant="h6" component="h6">
+                      {formValues.phoneInput.errorMessage}
+                    </Typography>
+                  )}
 
                   {userType === "artist" && (
                     <div className="artist-add-ons">
@@ -503,6 +631,6 @@ export const CreateAccount = () => {
           </Grid>
         </Grid>
       </ThemeProvider>
-    </>
+    </div>
   );
 };

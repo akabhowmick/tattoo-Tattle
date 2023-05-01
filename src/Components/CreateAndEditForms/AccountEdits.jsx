@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../../providers/auth-provider";
 import { Typography, Box, TextField, Button } from "@mui/material";
+import { showToastMessage, ToastMessage } from "../UserInterface/ToastMessage";
 const style = {
   position: "absolute",
   top: "50%",
@@ -27,7 +28,13 @@ export const AccountEdits = ({ handleAccountEditClose }) => {
   const [emailInput, setEmailInput] = useState("");
   const [validEmail, setValidEmail] = useState("Enter a valid email");
   const [passwordInput, setPasswordInput] = useState("");
-  const [validPassword, setValidPassword] = useState("Enter valid password (8-20 char, 1 lowercase,1 uppercase, 1 number, 1 special char)");
+  const [validPassword, setValidPassword] = useState(
+    "Enter valid password (8-20 char, 1 lowercase,1 uppercase, 1 number, 1 special char)"
+  );
+  const [toastMessage, setToastMessage] = useState({
+    message: "",
+    messageType: "",
+  });
 
   const emailValidation = (email) => {
     if (!emailInput) {
@@ -50,17 +57,31 @@ export const AccountEdits = ({ handleAccountEditClose }) => {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
       passwordRegex.test(password)
         ? setValidPassword("true")
-        : setValidPassword("Invalid password input, must have (8-20 char, 1 lowercase,1 uppercase, 1 number, 1 special char)");
+        : setValidPassword(
+            "Invalid password input, must have (8-20 char, 1 lowercase,1 uppercase, 1 number, 1 special char)"
+          );
     }
     setPasswordInput(password);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const info =
+      validPassword === "true" && validEmail === "true"
+        ? {
+            message: "User details modified",
+            messageType: "success",
+          }
+        : {
+            message: "Account Not Modified",
+            messageType: "error",
+          };
     if (validPassword === "true" && validEmail === "true") {
       editUser(emailInput, passwordInput);
-      handleAccountEditClose();
+      showToastMessage(info);
+      handleAccountEditClose(info);
     }
+    setToastMessage(info);
   };
 
   return (
@@ -114,6 +135,7 @@ export const AccountEdits = ({ handleAccountEditClose }) => {
           Edit Account
         </Button>
       </Box>
+      {toastMessage.message !== "" && <ToastMessage info={toastMessage} />}
     </div>
   );
 };
