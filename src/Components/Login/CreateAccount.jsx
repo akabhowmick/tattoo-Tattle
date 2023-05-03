@@ -28,6 +28,7 @@ import { useAuthContext } from "../../providers/auth-provider";
 import { tattooStyles, usStates } from "../../api/config";
 import { Navigate, Link } from "react-router-dom";
 import { ToastMessage } from "../UserInterface/ToastMessage";
+import { errorStyle } from "../UserInterface/Styles";
 
 function Copyright(props) {
   return (
@@ -66,12 +67,6 @@ function getStyles(name, selectField, theme) {
         : theme.typography.fontWeightMedium,
   };
 }
-
-const errorStyle = {
-  color: "red",
-  fontSize: "12px",
-  margin: "10px auto",
-};
 
 const theme = createTheme();
 
@@ -293,6 +288,7 @@ export const CreateAccount = () => {
       ) {
         user.statesInput = formValues.statesInput.data;
         user.tattooStyleInput = formValues.tattooStyleInput.data;
+        console.log(user);
         addArtist(user);
       }
       else{
@@ -614,7 +610,8 @@ export const CreateAccount = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
+                  sx={{ mt: 3, mb: 2, ":focus": {outline: "none"} }}
+                  className="btn-no-outline"
                 >
                   Create an Account!
                 </Button>

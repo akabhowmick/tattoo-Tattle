@@ -4,24 +4,7 @@ import React, { useState } from "react";
 import { useAuthContext } from "../../providers/auth-provider";
 import { Typography, Box, TextField, Button } from "@mui/material";
 import { showToastMessage, ToastMessage } from "../UserInterface/ToastMessage";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  backgroundColor: "white",
-  color: "black",
-};
-
-const errorStyle = {
-  color: "red",
-  fontSize: "12px",
-};
+import { errorStyle, modalStyles } from "../UserInterface/Styles";
 
 export const AccountEdits = ({ handleAccountEditClose }) => {
   const { editUser } = useAuthContext();
@@ -86,7 +69,7 @@ export const AccountEdits = ({ handleAccountEditClose }) => {
 
   return (
     <div>
-      <Box sx={style} component="form" noValidate onSubmit={handleSubmit}>
+      <Box sx={modalStyles} component="form" noValidate onSubmit={handleSubmit}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           Make changes to profile!
         </Typography>

@@ -4,6 +4,17 @@ body {
   overflow-x: hidden;
 }
 
+*:focus {
+  outline: none;
+}
+
+button:focus,
+button:focus-visible,
+.btn-no-outline:focus,
+.btn-no-outline:focus-visible {
+  outline: none;
+}
+
 #root {
   margin: 0 auto;
   text-align: center;
@@ -19,8 +30,9 @@ body {
 /* navbar */
 header nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
-  justify-content: end;
+  justify-content: center;
   margin: 0 1rem;
   align-items: center;
 }
@@ -93,14 +105,13 @@ header nav a {
 .dash-board {
   display: flex;
   flex-direction: row;
-  /* margin-top: 1rem; */
   margin: 1rem 1rem;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 #fade-button {
   background-color: white;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   color: black;
   border-radius: 10px;
 }
@@ -149,6 +160,11 @@ header nav a {
   color: white;
 }
 
+.filter-div{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /* Card grid */
 .tattoo-grid,
 .request-grid {
@@ -180,6 +196,7 @@ header nav a {
 
 .form-flex-div {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .create-tat-img {
@@ -212,9 +229,14 @@ header nav a {
 .pagination ul {
   display: flex;
   justify-content: center;
-  gap: 13px;
+  gap: 16px;
   list-style: none;
+  padding: 5px;
 }
+
+.pagination ul li:hover{
+  cursor: pointer;}
+
 
 .selected {
   border: 1px solid;
@@ -230,6 +252,36 @@ header nav a {
   font-size: 0.5rem;
 }
 
-#modal-modal-title{
+#modal-modal-title {
   text-align: center;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .artist-selectors {
+    flex-wrap: nowrap;
+    justify-content: space-around;
+  }
+
+  .selector{
+    font-size: 14px;
+  }
+
+  .form-flex-div{
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tattoo-form{
+    margin: 1rem
+  }
+
+  .filter-div{
+    justify-content: space-around;
+  }
+
+  .tattoo-filter{
+    margin: 4px !important;
+  }
 }

@@ -134,6 +134,7 @@ export const TattooCard = ({ userId, tattoo }) => {
           {userType === "client" && (
             <>
               <IconButton
+                className="btn-no-outline"
                 aria-label="add-to-favorites"
                 onClick={handleHeartClick}
               >
@@ -143,7 +144,11 @@ export const TattooCard = ({ userId, tattoo }) => {
                   <FavoriteBorderIcon />
                 )}
               </IconButton>
-              <IconButton aria-label="add-request" onClick={handleOpen}>
+              <IconButton
+                aria-label="add-request"
+                onClick={handleOpen}
+                className="btn-no-outline"
+              >
                 <AddCircleIcon sx={{ color: blue[500] }} />
               </IconButton>
             </>
@@ -154,10 +159,15 @@ export const TattooCard = ({ userId, tattoo }) => {
                 aria-label="delete-tattoo"
                 onClick={handleDeleteTattooClick}
                 sx={{ color: red[500] }}
+                className="btn-no-outline"
               >
                 <RemoveCircleOutlineIcon />
               </IconButton>
-              <IconButton aria-label="add-request" onClick={handleOpen}>
+              <IconButton
+                aria-label="add-request"
+                onClick={handleOpen}
+                className="btn-no-outline"
+              >
                 <AddCircleOutlineIcon sx={{ color: blue[500] }} />
               </IconButton>
             </>
@@ -167,6 +177,7 @@ export const TattooCard = ({ userId, tattoo }) => {
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
+            className="btn-no-outline"
           >
             <ExpandMoreIcon />
           </ExpandMore>

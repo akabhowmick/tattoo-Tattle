@@ -15,7 +15,9 @@ import { createTheme } from "@mui/material/styles";
 import { useTattooTattleContext } from "../../providers/tattoo-provider";
 import { useAuthContext } from "../../providers/auth-provider";
 import { ToastMessage } from "../UserInterface/ToastMessage";
-// import UploadImage from "./ImageUploader";
+import { storage } from "../UserInterface/ImageFirebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 const errorStyle = {
   color: "red",
@@ -66,6 +68,8 @@ export const CreateTattoo = () => {
     message: "",
     messageType: "",
   });
+
+  const [imageUrl, setImageUrl] = useState("");
 
   // used one state to see all validations; each component has the data, whether or not it is valid and a short message
   const [formValues, setFormValues] = useState(initial);
@@ -185,15 +189,30 @@ export const CreateTattoo = () => {
   };
 
   const imageValidation = (e) => {
-    const imageURL = URL.createObjectURL(e.target.files[0]);
-    setFormValues({
-      ...formValues,
-      image: {
-        data: imageURL,
-        valid: true,
-        errorMessage: "",
-      },
-    });
+    const file = e.target.files[0];
+    const imageURL = URL.createObjectURL(file);
+    if (file) {
+      uploadImageToFirebase(file);
+      setFormValues({
+        ...formValues,
+        image: {
+          data: imageURL,
+          valid: true,
+          errorMessage: "",
+        },
+      });
+    }
+  };
+
+  const uploadImageToFirebase = (file) => {
+    if (file) {
+      const imageRef = ref(storage, `images/${file.name + v4()}`);
+      uploadBytes(imageRef, file).then((snapshot) => {
+        getDownloadURL(snapshot.ref).then((url) => {
+          setImageUrl(url);
+        });
+      });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -210,10 +229,11 @@ export const CreateTattoo = () => {
       formValues.statesInput.valid &&
       formValues.price.valid
     ) {
+      uploadImageToFirebase();
       const newTattoo = {
         artistId: user.id,
         title: formValues.tattooTitle.data,
-        image: formValues.image.data,
+        image: imageUrl,
         dateCreated: new Date().toLocaleDateString(),
         artist: user.firstName + " " + user.lastName,
         description: formValues.tattooDescription.data,

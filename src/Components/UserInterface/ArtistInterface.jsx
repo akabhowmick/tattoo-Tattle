@@ -1,5 +1,5 @@
 import { Pagination } from "./Pagination";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CreateTattoo } from "../CreateAndEditForms/CreateTattoo";
 import { DashBoard } from "./DashBoard";
 import { ToastMessage } from "./ToastMessage";
@@ -13,6 +13,7 @@ export const ArtistInterface = () => {
   const [firstView, setFirstView] = useState(true);
   const filterClick = (selector) => {
     setFirstView(false);
+    setToastMessage({ message: "", messageType: "" });
     if (displaySelector !== selector) {
       setDisplaySelector(selector);
     } else {
@@ -20,21 +21,14 @@ export const ArtistInterface = () => {
     }
   };
 
-  useEffect(() => {
-    setToastMessage({ message: "", messageType: "" });
-  }, []);
-
   return (
     <div>
       {firstView && toastMessage !== "" && displaySelector === "tats" && (
         <ToastMessage info={{ message: "Logged in", messageType: "success" }} />
       )}
-      {/* {firstView && toastMessage == "" && displaySelector === "tats" && (
-        <ToastMessage info={toastMessage} />
-      )} */}
       <DashBoard />
       <div className="selectors-container">
-        <div className="selectors">
+        <div className="artist-selectors selectors">
           <div
             className={`selector ${displaySelector === "tats" && "active"}`}
             onClick={() => filterClick("tats")}

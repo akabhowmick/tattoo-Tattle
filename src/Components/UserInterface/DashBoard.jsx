@@ -38,18 +38,6 @@ export const DashBoard = () => {
     setLoggedIn(false);
   };
 
-  const handleHelpOpen = () => {
-    setOpenHelp(true);
-  };
-
-  const profileClick = () => {
-    setOpenProfile(true);
-  };
-
-  const accountEditsClick = () => {
-    setOpenAccountEdit(true);
-  };
-
   const handleHelpClose = () => {
     setOpenHelp(false);
   };
@@ -69,19 +57,31 @@ export const DashBoard = () => {
     <>
       {!user && <Navigate to="/" replace={true} />}
       <div className="dash-board">
-        <h2> Tattoo Tattle: Hi {user.firstName}! </h2>
-        <IconButton aria-label="helper-text" onClick={handleHelpOpen}>
-          <HelpOutlineIcon color="primary" fontSize="large" />
-        </IconButton>
-        <Button
-          id="fade-button"
-          aria-controls={open ? "fade-menu" : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-          onClick={handleClick}
-        >
-          Account Dashboard
-        </Button>
+        <div className="user-greeting">
+          <h2 style={{ margin: 0, fontSize: "1.75rem" }}>
+            {" "}
+            Tattoo Tattle: Hi {user.firstName}!{" "}
+          </h2>
+          <div style={{ display: "flex" }}>
+            <h4>Need Help:</h4>
+            <IconButton
+              aria-label="helper-text"
+              onClick={() => setOpenHelp(true)}
+              className="btn-no-outline"
+            >
+              <HelpOutlineIcon color="primary" fontSize="large" />
+            </IconButton>
+            <Button
+              id="fade-button"
+              aria-controls={open ? "fade-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
+            >
+              Account Dashboard
+            </Button>
+          </div>
+        </div>
         <Menu
           id="fade-menu"
           MenuListProps={{
@@ -92,8 +92,10 @@ export const DashBoard = () => {
           onClose={handleClose}
           TransitionComponent={Fade}
         >
-          <MenuItem onClick={profileClick}>Profile</MenuItem>
-          <MenuItem onClick={accountEditsClick}>My account</MenuItem>
+          <MenuItem onClick={() => setOpenProfile(true)}>Profile</MenuItem>
+          <MenuItem onClick={() => setOpenAccountEdit(true)}>
+            My account
+          </MenuItem>
           <MenuItem onClick={logOut}>Logout</MenuItem>
         </Menu>
         <Modal
@@ -122,7 +124,7 @@ export const DashBoard = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <div>
+          <div className="user-help">
             <UserHelpInstructions />
           </div>
         </Modal>

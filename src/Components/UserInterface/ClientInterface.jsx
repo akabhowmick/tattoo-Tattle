@@ -53,15 +53,17 @@ export const ClientInterface = () => {
 
   const [firstView, setFirstView] = useState(true);
   const handlePriceChange = (event) => {
+    setFirstView(false);
     handleFilters("price", event.target.value);
   };
 
   const filterClick = (selector, id) => {
     setFirstView(false);
-    activeSelectorClick(selector, id)
+    activeSelectorClick(selector, id);
   };
 
   const handleTattooStyleChange = (event) => {
+    setFirstView(false);
     const {
       target: { value },
     } = event;
@@ -72,6 +74,7 @@ export const ClientInterface = () => {
   };
 
   const handleUsStatesChange = (event) => {
+    setFirstView(false);
     const {
       target: { value },
     } = event;
@@ -89,15 +92,29 @@ export const ClientInterface = () => {
       <DashBoard />
       <div className="selectors-container">
         <div className="selectors">
-          <div
-            className={`selector ${activeSelector === "all" && "active"}`}
-            onClick={() => filterClick("all", user.id)}
-          >
-            All Tattoos
+          <div className="artist-selectors selectors">
+            <div
+              className={`selector ${activeSelector === "all" && "active"}`}
+              onClick={() => filterClick("all", user.id)}
+            >
+              All Tattoos
+            </div>
+            <div
+              className={`selector ${activeSelector === "favs" && "active"}`}
+              onClick={() => filterClick("favs", user.id)}
+            >
+              Favorited
+            </div>
+            <div
+              className={`selector ${activeSelector === "reqs" && "active"}`}
+              onClick={() => filterClick("reqs", user.id)}
+            >
+              My Requests
+            </div>
           </div>
           {activeSelector === "all" && (
-            <div>
-              <FormControl sx={{ m: 2, minWidth: 120 }}>
+            <div className="filter-div">
+              <FormControl className="tattoo-filter" sx={{ m: 2, minWidth: 120 }}>
                 <InputLabel id="demo-simple-select-helper-label">
                   Price
                 </InputLabel>
@@ -116,7 +133,7 @@ export const ClientInterface = () => {
                   <MenuItem value={1001}>&gt; 1000</MenuItem>
                 </Select>
               </FormControl>
-              <FormControl sx={{ m: 2, width: 120 }}>
+              <FormControl className="tattoo-filter" sx={{ m: 2, width: 120 }}>
                 <InputLabel id="demo-multiple-chip-label">Location</InputLabel>
                 <Select
                   required
@@ -158,7 +175,7 @@ export const ClientInterface = () => {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl sx={{ m: 2, width: 200 }}>
+              <FormControl className="tattoo-filter" sx={{ m: 2, width: 200 }}>
                 <InputLabel>Tattoo Style(s)</InputLabel>
                 <Select
                   required
@@ -196,18 +213,6 @@ export const ClientInterface = () => {
               </FormControl>
             </div>
           )}
-          <div
-            className={`selector ${activeSelector === "favs" && "active"}`}
-            onClick={() => filterClick("favs", user.id)}
-          >
-            Favorited
-          </div>
-          <div
-            className={`selector ${activeSelector === "reqs" && "active"}`}
-            onClick={() => filterClick("reqs", user.id)}
-          >
-            My Requests
-          </div>
         </div>
       </div>
       {activeSelector !== "reqs" && <Pagination currentDisplay={"tats"} />}

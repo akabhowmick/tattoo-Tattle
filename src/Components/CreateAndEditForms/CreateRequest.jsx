@@ -4,22 +4,7 @@ import { Typography, Box, TextField, Button } from "@mui/material";
 import { useRequestsContext } from "../../providers/requests-provider";
 import { useAuthContext } from "../../providers/auth-provider";
 import { ToastMessage } from "../UserInterface/ToastMessage";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-  backgroundColor: "white",
-  color: "black",
-};
-const errorStyle = {
-  color: "red",
-  fontSize: "12px",
-};
+import { errorStyle, modalStyles } from "../UserInterface/Styles";
 
 export const CreateRequest = ({
   tattoo,
@@ -76,7 +61,7 @@ export const CreateRequest = ({
   return (
     <>
       <div>
-        <Box sx={style} component="form" noValidate onSubmit={handleSubmit}>
+        <Box sx={modalStyles} component="form" noValidate onSubmit={handleSubmit}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Inquire Artist about Design
           </Typography>

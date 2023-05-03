@@ -23,8 +23,8 @@ export const AuthProvider = ({ children }) => {
       email: artist.email,
       password: artist.password,
       phoneNumber: artist.phoneNumber,
-      tattooStyles: artist.tattooStyles,
-      statesLocation: artist.statesLocation,
+      tattooStyles: artist.tattooStyleInput,
+      statesLocation: artist.statesInput,
     });
     const allArtists = await getArtistsFromDB();
     const newAddedArtist = allArtists.find(

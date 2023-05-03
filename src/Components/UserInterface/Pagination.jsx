@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useAuthContext } from "../../providers/auth-provider";
 import { useRequestsContext } from "../../providers/requests-provider";
@@ -57,7 +57,7 @@ export const Pagination = ({ currentDisplay }) => {
 
   const items = currentDisplay === "tats" ? tattoos : requests;
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 6; // can change to any number 
   const [itemOffset, setItemOffset] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items.slice(itemOffset, endOffset);
@@ -67,6 +67,10 @@ export const Pagination = ({ currentDisplay }) => {
     const newOffset = (event.selected * itemsPerPage) % tattoos.length;
     setItemOffset(newOffset);
   };
+
+  useEffect(()=>{
+    setItemOffset(0)
+  },[tattoos])
 
   return (
     <div className="pagination">
