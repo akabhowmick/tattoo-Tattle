@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import Collapse from "@mui/material/Collapse";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -25,18 +23,7 @@ import { EditTattoo } from "../CreateAndEditForms/EditTattoo";
 import notFoundImage from "../../assets/not-found.png";
 import { red, green, blue } from "@mui/material/colors";
 import { ToastMessage } from "./ToastMessage";
-
-const ExpandMore = styled((props) => {
-  // eslint-disable-next-line no-unused-vars
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import { TattooInfo } from "./TattooInfo";
 
 // eslint-disable-next-line react/prop-types
 export const TattooCard = ({ userId, tattoo }) => {
@@ -44,17 +31,7 @@ export const TattooCard = ({ userId, tattoo }) => {
   const { toggleFavorites, favorites } = useFavoritesContext();
   const { activeSelector, deleteTattoo, activeSelectorClick } =
     useTattooTattleContext();
-  const {
-    artist,
-    title,
-    image,
-    description,
-    id,
-    dateCreated,
-    price,
-    statesInput,
-    tattooStyleInput,
-  } = tattoo;
+  const { artist, title, image, id, tattooStyleInput } = tattoo;
 
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = React.useState(false);
@@ -73,15 +50,6 @@ export const TattooCard = ({ userId, tattoo }) => {
     favorites.find(
       (favorite) => favorite.userId === userId && favorite.tattooId === id
     ) !== undefined;
-
-  const priceDescription =
-    price === 1001
-      ? "Over $1000"
-      : price === 1000
-      ? "Between $500 and $1000"
-      : price === 500
-      ? "Between $100 and $500"
-      : "Less than $100";
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -115,7 +83,7 @@ export const TattooCard = ({ userId, tattoo }) => {
               {artist[0]}
             </Avatar>
           }
-          title={title}
+          title={<Typography id="tattoo-title">{title}</Typography>}
           subheader={artist}
         />
         <CardMedia
@@ -126,7 +94,9 @@ export const TattooCard = ({ userId, tattoo }) => {
         />
         <CardContent>
           <Typography variant="body1">
-            <strong>Tattoo Style: </strong> {tattooStyleInput?.toString()}
+            <strong>Tattoo Style: </strong>
+            <br />
+            {tattooStyleInput?.toString()}
           </Typography>
         </CardContent>
 
@@ -172,36 +142,15 @@ export const TattooCard = ({ userId, tattoo }) => {
               </IconButton>
             </>
           )}
-          <ExpandMore
-            expand={expanded}
+          <IconButton
             onClick={handleExpandClick}
             aria-expanded={expanded}
             aria-label="show more"
             className="btn-no-outline"
           >
             <ExpandMoreIcon />
-          </ExpandMore>
+          </IconButton>
         </CardActions>
-
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>
-              <strong>Description: </strong>
-              {description}
-            </Typography>
-            <Typography paragraph>
-              <strong>Design date: </strong>
-              {dateCreated}
-            </Typography>
-            <Typography paragraph>
-              <strong>Where can you get this:</strong> {statesInput?.toString()}
-            </Typography>
-            <Typography paragraph>
-              <strong>Price Range: </strong>
-              {priceDescription}
-            </Typography>
-          </CardContent>
-        </Collapse>
 
         <Modal
           open={open}
@@ -223,6 +172,17 @@ export const TattooCard = ({ userId, tattoo }) => {
                 tattooEditSuccess={tattooToastSuccess}
               />
             )}
+          </div>
+        </Modal>
+
+        <Modal
+          open={expanded}
+          onClose={() => setExpanded(false)}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <div>
+            <TattooInfo tattoo={tattoo} />
           </div>
         </Modal>
       </Card>

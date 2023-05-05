@@ -20,30 +20,22 @@ export const AccountEdits = ({ handleAccountEditClose }) => {
   });
 
   const emailValidation = (email) => {
-    if (!emailInput) {
-      setValidEmail("Invalid entry: email input is empty");
-    } else {
-      const emailRegex =
-        /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-      emailRegex.test(email)
-        ? setValidEmail("true")
-        : setValidEmail("Invalid email input");
-    }
+    const emailRegex =
+      /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    emailRegex.test(email)
+      ? setValidEmail("true")
+      : setValidEmail("Invalid email input");
     setEmailInput(email);
   };
 
   const passwordValidation = (password) => {
-    if (!validPassword) {
-      setValidPassword("Invalid entry: password input is empty");
-    } else {
-      const passwordRegex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
-      passwordRegex.test(password)
-        ? setValidPassword("true")
-        : setValidPassword(
-            "Invalid password input, must have (8-20 char, 1 lowercase,1 uppercase, 1 number, 1 special char)"
-          );
-    }
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[-#$^+_!*()@%&]).{8,20}$/gm;
+    passwordRegex.test(password)
+      ? setValidPassword("true")
+      : setValidPassword(
+          "Invalid password input, must have (8-20 char, 1 lowercase,1 uppercase, 1 number, 1 special char)"
+        );
     setPasswordInput(password);
   };
 
@@ -81,6 +73,7 @@ export const AccountEdits = ({ handleAccountEditClose }) => {
           label="Email Address"
           name="email"
           autoFocus
+          value={emailInput}
           onChange={(e) => {
             emailValidation(e.target.value);
           }}
@@ -99,6 +92,7 @@ export const AccountEdits = ({ handleAccountEditClose }) => {
           label="Password"
           type="password"
           id="password"
+          value={passwordInput}
           onChange={(e) => {
             passwordValidation(e.target.value);
           }}

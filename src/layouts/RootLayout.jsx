@@ -6,7 +6,7 @@ export default function RootLayout() {
     <div className="root-layout">
       <header>
         <nav>
-          <h1>Tattoo Tattle</h1>
+          <h1 id="site-header">Tattoo Tattle</h1>
           <NavLink to="/">Login</NavLink>
           <NavLink to="/client-home">Client</NavLink>
           <NavLink to="/artist-home">Artist</NavLink>

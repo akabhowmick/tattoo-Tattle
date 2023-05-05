@@ -22,4 +22,8 @@ Technologies used:
 Future updates:
   => loading cards when waiting for fetch; empty card display 
   => header disappear when logged in
+  => filters appear beneath the filter bar, with cancel options
 
+
+To fix:
+  => fix pagination for tattoos 

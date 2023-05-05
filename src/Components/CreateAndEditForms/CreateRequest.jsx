@@ -21,12 +21,12 @@ export const CreateRequest = ({
   });
 
   const messageBodyValidation = (message) => {
-    if (!messageBody || message.length < 20) {
+    setMessageBody(message);
+    if (message.length < 20) {
       setValidMessage("Invalid: enter a description (>20 char)");
     } else {
       setValidMessage("true");
     }
-    setMessageBody(message);
   };
 
   const handleSubmit = (e) => {
@@ -75,6 +75,7 @@ export const CreateRequest = ({
             id="messageBody"
             autoComplete="message for artist"
             autoFocus
+            value={messageBody}
             onChange={(e) => {
               messageBodyValidation(e.target.value);
             }}

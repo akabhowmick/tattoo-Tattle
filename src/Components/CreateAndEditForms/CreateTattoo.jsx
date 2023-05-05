@@ -75,7 +75,7 @@ export const CreateTattoo = () => {
   const [formValues, setFormValues] = useState(initial);
 
   const messageBodyValidation = (desc) => {
-    if (!formValues.tattooDescription.data || desc.length < 20) {
+    if (desc.length < 20) {
       setFormValues({
         ...formValues,
         tattooDescription: {
@@ -97,7 +97,7 @@ export const CreateTattoo = () => {
   };
 
   const titleValidation = (title) => {
-    if (!formValues.tattooTitle.data || title.length < 5) {
+    if (title.length < 5) {
       setFormValues({
         ...formValues,
         tattooTitle: {

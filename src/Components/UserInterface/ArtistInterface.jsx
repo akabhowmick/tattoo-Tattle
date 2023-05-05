@@ -2,18 +2,11 @@ import { Pagination } from "./Pagination";
 import React, { useState } from "react";
 import { CreateTattoo } from "../CreateAndEditForms/CreateTattoo";
 import { DashBoard } from "./DashBoard";
-import { ToastMessage } from "./ToastMessage";
 
 export const ArtistInterface = () => {
   const [displaySelector, setDisplaySelector] = useState("tats");
-  const [toastMessage, setToastMessage] = useState({
-    message: "Logged in",
-    messageType: "success",
-  });
-  const [firstView, setFirstView] = useState(true);
+
   const filterClick = (selector) => {
-    setFirstView(false);
-    setToastMessage({ message: "", messageType: "" });
     if (displaySelector !== selector) {
       setDisplaySelector(selector);
     } else {
@@ -23,9 +16,6 @@ export const ArtistInterface = () => {
 
   return (
     <div>
-      {firstView && toastMessage !== "" && displaySelector === "tats" && (
-        <ToastMessage info={{ message: "Logged in", messageType: "success" }} />
-      )}
       <DashBoard />
       <div className="selectors-container">
         <div className="artist-selectors selectors">

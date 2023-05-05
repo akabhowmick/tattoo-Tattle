@@ -57,19 +57,21 @@ export const Pagination = ({ currentDisplay }) => {
 
   const items = currentDisplay === "tats" ? tattoos : requests;
 
-  const itemsPerPage = 6; // can change to any number 
+  const itemsPerPage = 8; // can change to any number 
   const [itemOffset, setItemOffset] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(items.length / itemsPerPage);
 
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % tattoos.length;
-    setItemOffset(newOffset);
+  const handlePageClick = ({selected}) => {
+    setItemOffset((selected * itemsPerPage) % tattoos.length);
+    setCurrentPage(selected);
   };
 
   useEffect(()=>{
-    setItemOffset(0)
+    setItemOffset(0);
+    setCurrentPage(0);
   },[tattoos])
 
   return (
@@ -84,10 +86,11 @@ export const Pagination = ({ currentDisplay }) => {
         breakLabel="..."
         nextLabel="next >"
         onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
+        forcePage={currentPage}
       />
     </div>
   );

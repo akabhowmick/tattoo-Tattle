@@ -14,7 +14,7 @@ import { ToastMessage } from "./ToastMessage";
 import { UserHelpInstructions } from "./UserHelpInstructions";
 
 export const DashBoard = () => {
-  const { user, setUser, setLoggedIn } = useAuthContext();
+  const { user, logOutUser } = useAuthContext();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [openHelp, setOpenHelp] = React.useState(false);
   const [openProfile, setOpenProfile] = React.useState(false);
@@ -31,11 +31,6 @@ export const DashBoard = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const logOut = () => {
-    setUser(null);
-    setLoggedIn(false);
   };
 
   const handleHelpClose = () => {
@@ -59,8 +54,7 @@ export const DashBoard = () => {
       <div className="dash-board">
         <div className="user-greeting">
           <h2 style={{ margin: 0, fontSize: "1.75rem" }}>
-            {" "}
-            Tattoo Tattle: Hi {user.firstName}!{" "}
+            Hi {user.firstName}!
           </h2>
           <div style={{ display: "flex" }}>
             <h4>Need Help:</h4>
@@ -96,7 +90,7 @@ export const DashBoard = () => {
           <MenuItem onClick={() => setOpenAccountEdit(true)}>
             My account
           </MenuItem>
-          <MenuItem onClick={logOut}>Logout</MenuItem>
+          <MenuItem onClick={logOutUser}>Logout</MenuItem>
         </Menu>
         <Modal
           open={openProfile}

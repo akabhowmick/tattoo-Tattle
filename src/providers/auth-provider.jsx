@@ -7,6 +7,7 @@ import {
   updateClientInDB,
   updateArtistInDB,
 } from "../api/UserRequests/edit-user-info";
+import { useEffect } from "react";
 
 const AuthContext = createContext({});
 
@@ -14,6 +15,25 @@ export const AuthProvider = ({ children }) => {
   const [userType, setUserType] = useState("client");
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const signInUser = (user) => {
+    localStorage.setItem("user", JSON.stringify(user));
+    setUser(user);
+    setLoggedIn(true);
+  };
+
+  const logOutUser = () => {
+    setUser({});
+    setLoggedIn(false);
+    localStorage.removeItem("user");
+  }
+
+  useEffect(() => {
+    const maybeUser = localStorage.getItem("user");
+    if (maybeUser) {
+      signInUser(JSON.parse(maybeUser));
+    }
+  }, []);
 
   // register new user
   const addArtist = async (artist) => {
@@ -30,8 +50,7 @@ export const AuthProvider = ({ children }) => {
     const newAddedArtist = allArtists.find(
       (user) => user.email === artist.email && user.password === artist.password
     );
-    setUser(newAddedArtist);
-    setLoggedIn(true);
+    signInUser(newAddedArtist);
   };
 
   const addClient = async (client) => {
@@ -46,8 +65,7 @@ export const AuthProvider = ({ children }) => {
     const newAddedClient = allClients.find(
       (user) => user.email === client.email && user.password === client.password
     );
-    setUser(newAddedClient);
-    setLoggedIn(true);
+    signInUser(newAddedClient);
   };
 
   //login old user
@@ -57,11 +75,10 @@ export const AuthProvider = ({ children }) => {
       password: client.password,
     });
     if (artist) {
-      setUser(artist);
-      setLoggedIn(true);
-      return true; 
+      signInUser(artist);
+      return true;
     } else {
-      return false; 
+      return false;
     }
   };
 
@@ -71,21 +88,20 @@ export const AuthProvider = ({ children }) => {
       password: client.password,
     });
     if (user) {
-      setUser(user);
-      setLoggedIn(true);
-      return true; 
+      signInUser(user);
+      return true;
     } else {
       return false;
     }
   };
-  
+
   const editUser = async (email, password) => {
     if (userType === "client") {
       await updateClientInDB(user.id, email, password);
     } else if (userType === "artist") {
       await updateArtistInDB(user.id, email, password);
     }
-    setUser({ ...user, email: email, password: password })
+    signInUser({ ...user, email: email, password: password })
   };
 
   return (
@@ -102,6 +118,7 @@ export const AuthProvider = ({ children }) => {
         loggedIn,
         setLoggedIn,
         editUser,
+        logOutUser
       }}
     >
       {children}
@@ -123,5 +140,6 @@ export const useAuthContext = () => {
     loggedIn: context.loggedIn,
     setLoggedIn: context.setLoggedIn,
     editUser: context.editUser,
+    logOutUser: context.logOutUser
   };
 };

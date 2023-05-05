@@ -49,6 +49,10 @@ header nav a {
   font-size: 1.25rem;
 }
 
+#site-header {
+  font-family: cursive;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -103,10 +107,14 @@ header nav a {
 
 /* dashboard */
 .dash-board {
-  display: flex;
-  flex-direction: row;
   margin: 1rem 1rem;
-  justify-content: flex-end;
+}
+
+.user-greeting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 #fade-button {
@@ -160,7 +168,7 @@ header nav a {
   color: white;
 }
 
-.filter-div{
+.filter-div {
   display: flex;
   flex-wrap: wrap;
 }
@@ -170,15 +178,22 @@ header nav a {
 .request-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 3%;
+  gap: 16px;
   margin: 2rem auto;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .tattoo-card,
 .request-card {
   background-color: red;
+}
+
+#tattoo-title {
+  max-width: 20ch;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .avatar {
@@ -234,9 +249,9 @@ header nav a {
   padding: 5px;
 }
 
-.pagination ul li:hover{
-  cursor: pointer;}
-
+.pagination ul li:hover {
+  cursor: pointer;
+}
 
 .selected {
   border: 1px solid;
@@ -254,8 +269,8 @@ header nav a {
 
 #modal-modal-title {
   text-align: center;
+  margin-bottom: 16px;
 }
-
 
 @media only screen and (max-width: 600px) {
   .artist-selectors {
@@ -263,25 +278,25 @@ header nav a {
     justify-content: space-around;
   }
 
-  .selector{
+  .selector {
     font-size: 14px;
   }
 
-  .form-flex-div{
+  .form-flex-div {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
   }
 
-  .tattoo-form{
-    margin: 1rem
+  .tattoo-form {
+    margin: 1rem;
   }
 
-  .filter-div{
+  .filter-div {
     justify-content: space-around;
   }
 
-  .tattoo-filter{
+  .tattoo-filter {
     margin: 4px !important;
   }
 }

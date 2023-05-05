@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuthContext } from "../../providers/auth-provider";
 import { useTattooTattleContext } from "../../providers/tattoo-provider";
 import { DashBoard } from "./DashBoard";
@@ -14,7 +14,6 @@ import {
 import { createTheme } from "@mui/material/styles";
 import { tattooStyles, usStates } from "../../api/config";
 import { Pagination } from "./Pagination";
-import { ToastMessage } from "./ToastMessage";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -42,28 +41,16 @@ export const ClientInterface = () => {
   const { user } = useAuthContext();
   const { activeSelector, activeSelectorClick, handleFilters, filters } =
     useTattooTattleContext();
-  const [toastMessage, setToastMessage] = useState({
-    message: "Logged in",
-    messageType: "success",
-  });
 
-  useEffect(() => {
-    setToastMessage({ message: "", messageType: "" });
-  }, []);
-
-  const [firstView, setFirstView] = useState(true);
   const handlePriceChange = (event) => {
-    setFirstView(false);
     handleFilters("price", event.target.value);
   };
 
   const filterClick = (selector, id) => {
-    setFirstView(false);
     activeSelectorClick(selector, id);
   };
 
   const handleTattooStyleChange = (event) => {
-    setFirstView(false);
     const {
       target: { value },
     } = event;
@@ -74,7 +61,6 @@ export const ClientInterface = () => {
   };
 
   const handleUsStatesChange = (event) => {
-    setFirstView(false);
     const {
       target: { value },
     } = event;
@@ -86,9 +72,6 @@ export const ClientInterface = () => {
 
   return (
     <div>
-      {firstView && toastMessage !== "" && activeSelector === "all" && (
-        <ToastMessage info={{ message: "Logged in", messageType: "success" }} />
-      )}
       <DashBoard />
       <div className="selectors-container">
         <div className="selectors">

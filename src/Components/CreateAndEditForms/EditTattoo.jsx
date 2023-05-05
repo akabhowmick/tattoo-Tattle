@@ -17,7 +17,7 @@ export const EditTattoo = ({ id, handleClose, tattooEditSuccess }) => {
   });
 
   const messageBodyValidation = (message) => {
-    if (!messageBody || message.length < 20) {
+    if (message.length < 20) {
       setValidMessage("Invalid: enter a description (>20 char)");
     } else {
       setValidMessage("true");
@@ -26,7 +26,7 @@ export const EditTattoo = ({ id, handleClose, tattooEditSuccess }) => {
   };
 
   const titleValidation = (title) => {
-    if (!tattooTitle || title.length < 5) {
+    if (title.length < 5) {
       setValidTitle("Invalid: enter a title");
     } else {
       setValidTitle("true");

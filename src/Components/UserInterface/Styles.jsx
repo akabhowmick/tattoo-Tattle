@@ -6,10 +6,12 @@ export const modalStyles = {
   width: 400,
   bgcolor: "background.paper",
   maxWidth: "80%",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
   backgroundColor: "white",
+  color: "black",
+  border: "none",
+  borderRadius: "10px"
 };
 
 export const errorStyle = {
