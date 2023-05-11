@@ -90,7 +90,7 @@ export const Pagination = ({ currentDisplay }) => {
         pageCount={pageCount}
         previousLabel="< previous"
         renderOnZeroPageCount={null}
-        forcePage={currentPage}
+        forcePage={currentPage > pageCount ? -1 : currentPage}
       />
     </div>
   );

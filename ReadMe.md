@@ -14,6 +14,13 @@
 2. Filter based on location, price, and style 
 3. Add and view requests on tattoos that you liked 
 
+### Instructions:
+1. Git clone the repo
+2. Run "npm i" to download all node modules and dependencies
+3. On a terminal session run the command "npx json-server --watch db.json" to start up the json servers
+4. On a separate terminal run "npm run dev" to start up the app
+5. Create an account/log in and explore the tattoo tattle site! 
+
 ### Technologies used:
 1. React
 2. React Router

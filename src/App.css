@@ -128,7 +128,6 @@ header nav a {
 .selectors-container {
   color: black;
   margin: 1rem 1rem;
-  background-color: white;
   font-size: 20px;
   display: flex;
   justify-content: space-between;
@@ -156,6 +155,16 @@ header nav a {
   display: flex;
   align-items: center;
   font-size: 1rem;
+  background-color: aliceblue;
+}
+
+.tattoo-filter {
+  background-color: aliceblue;
+  border-radius: 10px;
+}
+
+.tattoo-filter:hover{
+  color: black;
 }
 
 .selector:hover {
@@ -171,6 +180,7 @@ header nav a {
 .filter-div {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 /* Card grid */
