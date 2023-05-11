@@ -19,6 +19,9 @@ export const AuthProvider = ({ children }) => {
   const signInUser = (user) => {
     localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
+    if(user.statesLocation){
+      setUserType("artist");
+    }
     setLoggedIn(true);
   };
 

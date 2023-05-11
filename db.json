@@ -79,6 +79,14 @@
       "password": "OgknzZ5DgO@11",
       "phoneNumber": "+1 999 641 7738",
       "id": 10
+    },
+    {
+      "firstName": "Tyson",
+      "lastName": "Changer",
+      "email": "tchange@yahoo.com",
+      "password": "1234ASsd!",
+      "phoneNumber": "+1 901 231 2112",
+      "id": 11
     }
   ],
   "artists": [
@@ -1051,7 +1059,7 @@
       "clientName": "Amelia Boyer",
       "artistName": "Vergie Schuster",
       "messageBody": "This is even really cool!  ",
-      "approvalStatus": "Pending",
+      "approvalStatus": "Accepted",
       "tattooOfInterestTitle": "Dynamic Identity Architec",
       "artistId": 1,
       "clientId": 1,
