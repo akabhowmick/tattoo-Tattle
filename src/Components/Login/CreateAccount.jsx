@@ -288,7 +288,6 @@ export const CreateAccount = () => {
       ) {
         user.statesInput = formValues.statesInput.data;
         user.tattooStyleInput = formValues.tattooStyleInput.data;
-        console.log(user);
         addArtist(user);
       }
       else{

@@ -1,29 +1,25 @@
-Welcome to Tattoo Tattle! 
+# Tattoo Tattle 
 
-There are two modes in the site:
+## Welcome to Tattoo Tattle! 
 
-Artist Mode:
-You can:
-  Add Tattoos
-  Display your tattoos
-  Approve or deny requests
+### There are two modes in the site:
 
-Client Mode:
-You Can: 
-  View tattoos and filter based on location, price, and style 
-  Add and view requests on tattoos that you liked 
+### In the artist mode you can:
+1. Add Tattoos
+2. Display your tattoos
+3. Approve or deny requests
 
-Technologies used:
-  React
-  React Router
-  Material UI
-  Firebase (image storage)
+### In the client mode you can:
+1. View tattoos
+2. Filter based on location, price, and style 
+3. Add and view requests on tattoos that you liked 
 
-Future updates:
-  => loading cards when waiting for fetch; empty card display 
-  => header disappear when logged in
-  => filters appear beneath the filter bar, with cancel options
+### Technologies used:
+1. React
+2. React Router
+3. Material UI
+4. Firebase (image storage)
 
-
-To fix:
-  => fix pagination for tattoos 
+### Future updates:
+1. Loading cards when waiting for fetch; empty card display 
+2. Filters appear beneath the filter bar, with cancel options

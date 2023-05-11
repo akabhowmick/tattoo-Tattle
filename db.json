@@ -23,6 +23,54 @@
       "password": "Qwerasdf12!",
       "phoneNumber": "+1 966 886 9670",
       "id": 3
+    },
+    {
+      "firstName": "Ben",
+      "lastName": "Awesome",
+      "email": "asdhkdfh123@gmail.com",
+      "password": "Passqwers123124!",
+      "phoneNumber": "+1 243 423 5242",
+      "id": 4
+    },
+    {
+      "firstName": "Chelsie",
+      "lastName": "Huels",
+      "email": "fakedata33752@gmail.com",
+      "password": "6M588M!qa",
+      "phoneNumber": "+1 234 233 4223",
+      "id": 5
+    },
+    {
+      "firstName": "Charles",
+      "lastName": "Kilback",
+      "email": "fakedata30530@gmail.com",
+      "password": "098N9WrCjQ1a!",
+      "phoneNumber": "+1 804 166 0647",
+      "id": 6
+    },
+    {
+      "firstName": "Retta",
+      "lastName": "Robel",
+      "email": "fakedata54848@gmail.com",
+      "password": "CwEz4mroTQ1a!",
+      "phoneNumber": "+1 558 459 1697",
+      "id": 7
+    },
+    {
+      "firstName": "Westley",
+      "lastName": "Jenkins",
+      "email": "fakedata22107@gmail.com",
+      "password": "JzShn2dKB1Qa1@",
+      "phoneNumber": "+1 607 699 6653",
+      "id": 8
+    },
+    {
+      "firstName": "Elza",
+      "lastName": "Pfannerstill",
+      "email": "fakedata4@gmail.com",
+      "password": "7eJwfNVy!q",
+      "phoneNumber": "+1 668 925 9295",
+      "id": 9
     }
   ],
   "artists": [
@@ -198,6 +246,39 @@
         "Realism"
       ],
       "id": 9
+    },
+    {
+      "firstName": "Jeanie",
+      "lastName": "Kshlerin",
+      "email": "fakedata71245@gmail.com",
+      "password": "3HQFHJ8112QWas@",
+      "phoneNumber": "+1 234 322 3422",
+      "statesLocation": [
+        "LA",
+        "MA"
+      ],
+      "tattooStyles": [
+        "Fine Line",
+        "Watercolor",
+        "Blackwork"
+      ],
+      "id": 10
+    },
+    {
+      "firstName": "Steve",
+      "lastName": "Fay",
+      "email": "fakedata25636@gmail.com",
+      "password": "FSLj9yq3Q1Aq!a",
+      "phoneNumber": "+1 367 837 8773",
+      "statesLocation": [
+        "CA",
+        "CO"
+      ],
+      "tattooStyles": [
+        "Old School",
+        "Blackwork"
+      ],
+      "id": 11
     }
   ],
   "tattoos": [
@@ -1029,6 +1110,26 @@
       "userId": 1,
       "tattooId": 7,
       "id": 10
+    },
+    {
+      "userId": 4,
+      "tattooId": 7,
+      "id": 11
+    },
+    {
+      "userId": 4,
+      "tattooId": 9,
+      "id": 12
+    },
+    {
+      "userId": 9,
+      "tattooId": 4,
+      "id": 13
+    },
+    {
+      "userId": 9,
+      "tattooId": 5,
+      "id": 14
     }
   ]
 }
